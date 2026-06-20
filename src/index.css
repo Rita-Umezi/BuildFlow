@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+
+  /* Custom palette matching Geometric Balance - elegant draft paper, ink, and sharp accents */
+  --color-paper-50: #fcfbfa;
+  --color-paper-100: #fbfaf6;
+  --color-paper-150: #f8f6f0;
+  --color-paper-200: #f6f4ed;
+  --color-paper-250: #f0ede3;
+  --color-paper-300: #eae7db;
+  --color-ink-950: #0c0e15;
+  --color-ink-900: #121520;
+  --color-ink-800: #1d2232;
+  --color-ink-700: #2b3247;
+  --color-ink-600: #424c66;
+  --color-ink-500: #5e6b8c;
+  --color-accent-blue: #0f62fe;
+  --color-accent-orange: #ff5c00;
+  --color-accent-green: #008a52;
+
+  /* Custom crisp borders and boxes shadows */
+  --shadow-geo-flat: 2px 2px 0px 0px #121520;
+  --shadow-geo-md: 4px 4px 0px 0px #121520;
+  --shadow-geo-lg: 6px 6px 0px 0px #121520;
+  --shadow-geo-accent: 3px 3px 0px 0px #ff5c00;
+}
+
+/* Custom architectural utility classes */
+.blueprint-grid {
+  background-image: 
+    linear-gradient(to right, rgba(18, 21, 32, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(18, 21, 32, 0.04) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.blueprint-grid-accent {
+  background-image: 
+    linear-gradient(to right, rgba(15, 98, 254, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 98, 254, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.architect-glass {
+  background: rgba(251, 250, 246, 0.9);
+  backdrop-filter: blur(8px);
+}

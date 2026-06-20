@@ -1,0 +1,6 @@
+{
+  "name": "BuildFlow",
+  "description": "An intuitive architecture design and modeling platform combining conceptual sketching, 2D floor plans, 3D visualization, and an AI Design Assistant.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
