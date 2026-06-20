@@ -74,10 +74,39 @@ const SEED_PROJECTS: Project[] = TEMPLATE_PRESETS.map((preset, idx) => ({
 }));
 
 export default function App() {
-  // Project states
-  const [projects, setProjects] = useState<Project[]>(SEED_PROJECTS);
-  const [activeProjectId, setActiveProjectId] = useState<string>("studio-apartment");
+  // Project states with permanent localStorage storage system
+  const [projects, setProjects] = useState<Project[]>(() => {
+    const saved = localStorage.getItem("buildflow_projects");
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed;
+        }
+      } catch (e) {
+        console.error("Error loading saved projects", e);
+      }
+    }
+    return SEED_PROJECTS;
+  });
+
+  const [activeProjectId, setActiveProjectId] = useState<string>(() => {
+    const saved = localStorage.getItem("buildflow_active_project_id");
+    if (saved && saved !== "undefined" && saved !== "null") {
+      return saved;
+    }
+    return "studio-apartment";
+  });
+
   const activeProj = projects.find((p) => p.id === activeProjectId) || projects[0];
+
+  useEffect(() => {
+    localStorage.setItem("buildflow_projects", JSON.stringify(projects));
+  }, [projects]);
+
+  useEffect(() => {
+    localStorage.setItem("buildflow_active_project_id", activeProjectId);
+  }, [activeProjectId]);
 
   // Selected tool tracking
   const [activeTool, setActiveTool] = useState<string>("select");
@@ -119,6 +148,14 @@ export default function App() {
   const [sidebarMode, setSidebarMode] = useState<"manual" | "ai">("manual");
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [projectNameTemp, setProjectNameTemp] = useState(activeProj?.name || "My Blueprint");
+
+  // Keep projectNameTemp synced with activeProj when activeProjectId changes
+  useEffect(() => {
+    if (activeProj) {
+      setProjectNameTemp(activeProj.name);
+    }
+  }, [activeProjectId]);
+
   const [fileMenuOpen, setFileMenuOpen] = useState(false);
   const [saveToast, setSaveToast] = useState<string | null>(null);
   const [showStatsModal, setShowStatsModal] = useState(false);
@@ -557,7 +594,7 @@ export default function App() {
       )}
       {/* 1. Main Navigation Header */}
       {!isFullscreen && (
-        <header className="bg-paper-50 text-ink-900 px-5 py-3 flex items-center justify-between border-b-2 border-ink-950 z-10 shadow-none">
+        <header className="bg-paper-50 text-ink-900 px-5 py-3 flex items-center justify-between border-b-2 border-ink-950 relative z-[100] shadow-none">
           
           {/* Left Section: BuildFlow Branding, Project name selector (moves to top left), and File Menu Dropdown (moves farther right) */}
           <div className="flex items-center gap-5">
